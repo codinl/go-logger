@@ -105,6 +105,11 @@ func Init(logPath string, logFile string, level int, isConsole bool, showFileLin
 	}
 
 	std.mu.enable = mutex
+	
+	err := os.MkdirAll(logPath, os.ModePerm)
+	if err != nil {
+		return err
+	}
 
 	file, err := os.OpenFile(std.logfileFullName(), os.O_RDWR|os.O_APPEND|os.O_CREATE, 0666)
 	if err != nil {
